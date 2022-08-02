@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './004-useEffect-2';
+import App from './007-useReducer.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
