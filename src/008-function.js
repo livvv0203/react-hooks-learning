@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Test.css';
 
 export default function App() {
 
@@ -11,6 +12,27 @@ export default function App() {
     // Reusable Functions
     const trim = str => str.trim();
     const wrapInDiv = str => `<div>${str}</div>`; 
+    // JSON.stringfy(), JSON.parse()
+    const list = [
+        {
+            itemName: 'Apple',
+            itemCount: 2,
+            itemColor: 'red'
+        },
+        {
+            itemName: 'Apple',
+            itemCount: 3,
+            itemColor: 'green'
+        },
+        
+        {
+            itemName: 'Apple',
+            itemCount: 5,
+            itemColor: 'blue'
+        },
+    ];
+
+    // const [list, setList] = useState([]);
 
     const toLowerCase = str => str.toLowerCase();
     const result = wrapInDiv(toLowerCase(trim(input)));
@@ -19,11 +41,31 @@ export default function App() {
 
     return (
         <div>
-            Test
+            <table>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Count</th>
+                    <th>Item Color</th>
+                </tr>
+                {
+                    list.map((item,index) => 
+                    <tr key={index}>
+                        <td>{item.itemName}</td>
+                        <td>{item.itemCount}</td>
+                        <td>{item.itemColor}</td>
+                    </tr>
+                    )
+                }
+            </table>
         </div>
     );
-
 }
+
+
+
+
+
+
 
 
 
