@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './011-useWindowScroll';
+import App from './011-useWindowScroll.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
