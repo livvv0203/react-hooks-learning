@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import './Test.css';
 
 export default function App() {
 
@@ -16,13 +17,20 @@ export default function App() {
     }, []);
 
     return (
-        <div>
+        <div className='movie-list'>
             {
-                list.map(item => <li key={item.id}>{item.title}</li>)
+                list.map(item => <li className='list-content' key={item.id}>{item.title}</li>)
             }
         </div>
     );
 }
+
+
+
+
+
+
+
 
 
 
