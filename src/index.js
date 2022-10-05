@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './013-useEffectClearEffect';
+import App from './015-functions-props';
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
