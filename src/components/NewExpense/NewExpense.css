@@ -1,5 +1,5 @@
 .new-expense {
-  background-color: #7596d3;
+  background-color: lightslategray;
   padding: 1rem;
   margin: 2rem auto;
   width: 50rem;
@@ -22,7 +22,8 @@
 
 .new-expense button:hover,
 .new-expense button:active {
-  background-color: #064a6a;
+  background-color: rgb(83, 97, 111);
+  border: 2px solid;
   border-color: #064a6a;
 }
 
