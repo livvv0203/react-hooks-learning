@@ -8,6 +8,11 @@ const AddUser = (props) => {
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredAge, setEnteredAge] = useState('');
 
+  // useRef
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+  console.log(nameInputRef.current.value);
+
   const addUserHandler = (event) => {
     event.preventDefault();
     // Will execute only if enter is valid
@@ -20,7 +25,7 @@ const AddUser = (props) => {
     // console.log(enteredUsername, enteredAge);
     // Calling method through props in App.js
     props.onAddUser(enteredUsername, enteredAge);
-    setEnteredUsername('');
+    setEnteredUsername(''); 
     setEnteredAge('');
   };
 
@@ -36,7 +41,7 @@ const AddUser = (props) => {
     <Card className={classes.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username">Username</label>
-        <input id="username" type="text" value={enteredUsername} onChange={usernameChangeHandler}></input>
+        <input id="username" type="text" value={enteredUsername} onChange={usernameChangeHandler} ref={nameInputRef}></input>
         <label htmlFor="age">Age(Year)</label>
         <input id="age" type="number" value={enteredAge} onChange={ageChangeHandler}></input>
         <Button type="submit">Add User</Button>
