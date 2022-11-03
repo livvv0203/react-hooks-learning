@@ -1,27 +1,8 @@
 // To store redux related file
 // import { createStore } from 'redux';
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-
-const initialState = { counter: 0, showCounter: true };
-
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: initialState,
-  reducers: {
-    increment(state) {
-      state.counter++;
-    },
-    decrement(state) {
-      state.counter--;
-    },
-    increase(state, action) {
-      state.counter = state.counter + action.payload;
-    },
-    toggle(state) {
-      state.showCounter = !state.showCounter;
-    }
-  }
-});
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counter';
+import authReducer from './auth';
 
 // // Create a counter reducer
 // const counterReducer = (state = initialState, action) => {
@@ -59,8 +40,15 @@ const counterSlice = createSlice({
 
 // Create a new store, then point at the reducer function
 const store = configureStore({
-  reducer: counterSlice.reducer
+  reducer: {
+    // Will be merged into one main reducer to the store
+    counter: counterReducer,
+    auth: authReducer,
+  },
 });
 
-export const counterActions = counterSlice.actions;
 export default store; // only provide once, to the highest level of project - aka index.js
+
+
+
+

@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { counterActions } from '../store';
+import { counterActions } from '../store/counter';
 import classes from './Counter.module.css';
 
 const Counter = () => {
   // Pass a function which will receive the state managed by redux
-  const counter = useSelector((state) => state.counter);
-  const showCounter = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter);
+  const showCounter = useSelector((state) => state.counter.showCounter);
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,6 @@ const Counter = () => {
   const toggleCounterHandler = () => {
     // dispatch({ type: 'toggle' })
     dispatch(counterActions.toggle());
-
   }
 
   return (
