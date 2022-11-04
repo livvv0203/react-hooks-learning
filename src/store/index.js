@@ -4,6 +4,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './counter';
 import authReducer from './auth';
 
+// Create a new store, then point at the reducer function
+const store = configureStore({
+  reducer: {
+    // Will be merged into one main reducer to the store
+    counter: counterReducer,
+    auth: authReducer,
+  },
+});
+
+export default store; // only provide once, to the highest level of project - aka index.js
+
 // // Create a counter reducer
 // const counterReducer = (state = initialState, action) => {
 //   if (action.type === 'increment') {
@@ -38,16 +49,6 @@ import authReducer from './auth';
 //   return state;
 // };
 
-// Create a new store, then point at the reducer function
-const store = configureStore({
-  reducer: {
-    // Will be merged into one main reducer to the store
-    counter: counterReducer,
-    auth: authReducer,
-  },
-});
-
-export default store; // only provide once, to the highest level of project - aka index.js
 
 
 
