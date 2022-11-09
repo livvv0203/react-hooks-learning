@@ -5,16 +5,50 @@ for (let i = 0; i < arrList.length; i++) {
   myObj[i] = arrList[i];
 }
 
-// console.log(arrList);
-// console.log(myObj);
-
 // OR
 const arrList2 = ['Tom', 'Jerry', 'Cat', 'Mouse'];
 const myObj2 = Object.assign({}, arrList2);
-// console.log(arrList2);
-// console.log(myObj2);
+
+/**
+ * The data packet from API return value.
+ */
+class CustomerApiData{
+
+    constructor(obj) {
+        obj && Object.assign(this, obj);
+      }
+
+    /**
+     * @type{string}
+     */
+    customer_id;
+    /**
+     * @type{string}
+     */
+    customer_name;
+    /**
+     * @type{string} the raw date string.
+     */
+    date;
+    /**
+     * Get the Date object
+     * @returns {Date | null} the Date object parsed from date.
+     */
+    getDateObject(){
+        if (this.date === undefined || this.date === null) return null;
+        return new Date(this.date);
+    }
+    /**
+     * @type{number}
+     */
+     volumn = 0;
+}
+
 
 // INPUT
+/**
+ * @type{CustomerApiData[]}
+ */
 const arr = [
   {
     customer_id: 'KH20000000124',
@@ -36,6 +70,53 @@ const arr = [
   },
 ];
 
+
+/**
+ * This data is only for the chart display purpose, customer id is NOT included.
+ * Therefore this data cannot be used to trace back to the source data.
+ */
+class SeriesDataNode{
+    dataId;
+    /**
+     * @type{CustomerApiData[] | null}
+     */
+    rawDataList = [];
+    /**
+     * 
+     * @param {CustomerApiData} d 
+     */
+    pushToRawDataList(d){
+        this.rawDataList.push(d);
+    }
+    name;
+    data=[0,0,0,0,0,0,0];
+
+
+    summarize(){
+        this.rawDataList.forEach(s=>{
+            //console.log(s.getDateObject());
+            let weekday =s.getDateObject().getDay();
+            this.data[weekday] = Number.parseFloat(s.volumn);
+        });
+
+    }
+
+    /**
+     * Create an empty customer series data.
+     * This will convert api returned data into a series data struct,
+     * However, no value field will be analyzed (all data remains zero)
+     * @param {CustomerApiData} customerInfo 
+     * @returns {SeriesDataNode}
+     */
+    static Create(customerInfo){
+        var c= new SeriesDataNode();
+        c.dataId = customerInfo.customer_id;
+        c.customer_id = customerInfo.customer_id;
+        c.name = customerInfo.customer_name;
+        c.data = [0,0,0,0,0,0,0]
+        return c;
+    }
+}
 // OUTPUT
 let series = [
     {
@@ -52,37 +133,34 @@ let series = [
     }
 ];
 
-let seriesOutput = [];
-let customer_list = [];
+/**
+ * @type {SeriesDataNode[]}
+ */
+let inputData = [];
 
 
-for (let i = 0; i < arr.length; i++) {
-    // customer name
-    // dataTemp -> if arr.date === '2022-11-06'(Monday) -> dataTemp[0] = arr.volumn
-    // else dataTemp[i] === 0
-    let name = '';
-    let data = [];
-    if (!customer_list.includes(arr[i].customer_name)) {
-        
-        customer_list.push(arr[i].customer_name);
-        name = arr[i].customer_name;
 
-        data.push(arr[i].volumn);
+arr.forEach(element => {
 
-        seriesOutput.push({
-            name: name,
-            data: data
-        });
-    } else {
-        if (arr[i].volumn) {
-            seriesOutput.data.push(arr[i].volumn);
-        } else {
-            seriesOutput.data.push(0);
-        }
+    let t = inputData.find(s=>s.dataId == element.customer_id)
+
+    if (t === undefined || t === null){
+        t = SeriesDataNode.Create(element);
+        inputData.push(t);
     }
-}
+    
+    t.pushToRawDataList(new CustomerApiData(element));
+});
 
-console.log(seriesOutput);
+console.log(inputData);
+
+
+inputData.forEach(s=>{
+    s.summarize();
+});
+
+console.log(inputData);
+
 
 
 

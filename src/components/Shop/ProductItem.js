@@ -11,7 +11,7 @@ const ProductItem = (props) => {
     dispatch(cartActions.addItemToCart({
       id: id,
       title: title,
-      price: price,
+      price: price
     }));
   };
 
@@ -27,7 +27,7 @@ const ProductItem = (props) => {
           <button onClick={addToCartHandler}>Add to Cart</button>
         </div>
       </Card>
-    </li>
+    </li> 
   );
 };
 
