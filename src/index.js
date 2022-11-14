@@ -6,6 +6,7 @@ import App from './App';
 
 // Provide redux store here to the entire application
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <Provider store={store}>
     <App />
